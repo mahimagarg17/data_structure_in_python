@@ -1,0 +1,120 @@
+import sys
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+    def getdata(self):
+        return self.data
+    def getnextnode(self):
+        return self.next
+class linkedlist:
+    def __init__(self):
+        self.head=None
+    #insert operation to insert a node at a given position
+    def insert(self,data,pos):
+        newnode=Node(data)
+        #inserting node at position 1
+        if(pos==1):
+            newnode.next=self.head
+            self.head=newnode
+        #inserting the node in between
+        elif(pos>1 and pos<self.size()):
+            current=self.head
+            count=1
+            while(count<pos-1):
+                 current=current.next
+            temp=current.next
+            current.next=newnode
+            newnode.next=temp
+        #inserting the node at the end
+        else:
+            current=self.head
+            while(current.next!=None):
+                current=current.next
+            current.next=newnode
+    #retruns the size of the list
+    def size(self):
+        current = self.head
+        count = 0
+        while current:
+            count += 1
+            current = current.next
+        return count
+    #searching for a particular node in the list
+    def search(self,data):
+        current=self.head
+        found=False
+        count=0
+        if(self.head.data==data):
+            found=True
+            count=1
+        while(current and found is False):
+            if(current.data==data):
+                found=True
+                count+=1
+            else:
+                current=current.next
+                count+=1
+        if current is None:
+            raise ValueError("Data not in list")
+            count=0
+        return (count)
+    #deleting the node
+    def delete(self,data):
+        pos=self.search(data)
+        current=self.head
+        count=0
+        if(pos==0):
+            raise ValueError("Data not in list")
+        elif (pos>0 and pos<self.size()):
+              while(count<pos-2):
+                  current=current.next
+                  count+=1
+              temp=current.next.next
+              current.next=temp
+        #deleting last node
+        else:
+            count=0
+            while(count<pos-2):
+                current=current.next
+                count+=1
+            current.next=None
+    #printing the list
+    def printlinkedlist(self):
+        current=self.head
+        while(current):
+            print(current.data)
+            current=current.next
+#menu driven program
+print("1.INSERT")
+print("2.DELETE")
+print("3.SEARCH")
+print("4.SIZE")
+print("5.PRINT THE LINKED LIST")
+print("5.EXIT")
+l=linkedlist()
+choice=int(input("Enter your choice: "))
+c=1
+while(choice!=7):
+    if(c!=1):
+        choice=int(input("Enter your choice: "))
+    if(choice==1):
+        data=int(input("Enter the data: "))
+        pos=int(input("Enter the position where you want to insert data: "))
+        l.insert(data,pos)
+    if(choice==2):
+        data=int(input("Enter the data you want to delete: "))
+        l.delete(data)
+    if(choice==3):
+          data=int(input("Enter the data you want to search: "))
+          count=l.search(data)
+          if(count>0):
+              print("element found at position ",count)
+    if(choice==4):
+           size=l.size()
+           print("size of linked list= ",size)
+    if(choice==5):
+        l.printlinkedlist()
+    if(choice==6):
+           sys.exit()
+    c+=1
