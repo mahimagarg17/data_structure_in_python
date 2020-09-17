@@ -66,7 +66,12 @@ class linkedlist:
         count=0
         if(pos==0):
             raise ValueError("Data not in list")
-        elif (pos>0 and pos<self.size()):
+        #deleting the head node
+        if(pos==1):
+            temp=self.head.next
+            self.head.next=None
+            self.head=temp
+        elif (pos>1 and pos<self.size()):
               while(count<pos-2):
                   current=current.next
                   count+=1
@@ -91,7 +96,7 @@ print("2.DELETE")
 print("3.SEARCH")
 print("4.SIZE")
 print("5.PRINT THE LINKED LIST")
-print("5.EXIT")
+print("6.EXIT")
 l=linkedlist()
 choice=int(input("Enter your choice: "))
 c=1
